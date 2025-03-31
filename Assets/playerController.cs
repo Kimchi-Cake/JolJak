@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 5f;   //이동
     public float rotationSpeed = 10f;
 
     private Transform cameraTransform;
@@ -20,14 +20,13 @@ public class playerController : MonoBehaviour
 
     void Update()
     {
-        // 입력 받기
-        float horizontal = Input.GetAxisRaw("Horizontal"); // A/D
-        float vertical = Input.GetAxisRaw("Vertical");     // W/S
+        
+        float horizontal = Input.GetAxisRaw("Horizontal"); //이동
+        float vertical = Input.GetAxisRaw("Vertical");     //이동
         Vector3 inputDirection = new Vector3(horizontal, 0f, vertical).normalized;
 
         if (inputDirection.magnitude >= 0.1f)
         {
-            // 카메라 기준으로 방향 회전
             Vector3 cameraForward = cameraTransform.forward;
             Vector3 cameraRight = cameraTransform.right;
             cameraForward.y = 0f;
@@ -37,12 +36,10 @@ public class playerController : MonoBehaviour
 
             Vector3 moveDirection = cameraForward * vertical + cameraRight * horizontal;
             moveDirection.Normalize();
-
-            // 캐릭터 회전 (바라보는 방향)
+            
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-            // 이동
             characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
         }
     }
