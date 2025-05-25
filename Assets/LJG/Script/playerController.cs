@@ -20,13 +20,13 @@ public class playerController : MonoBehaviour
 
     void Update()
     {
-        // 중력
+ 
         if (controller.isGrounded && verticalVelocity < 0)
             verticalVelocity = -2f;
         else
             verticalVelocity += gravity * Time.deltaTime;
 
-        // 캐릭터 정면 기준 입력
+        
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 move = transform.right * h + transform.forward * v;
